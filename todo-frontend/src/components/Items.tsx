@@ -14,7 +14,7 @@ const Items = ({ todos, mutate }: { todos: Todo[], mutate: MutationObject}) => {
         </dl>
       </header>
       <main>
-        <label htmlFor="new_item">
+        <label htmlFor="new_item" onClick={mutate.showAddItem}>
           <img src="images/plus.png" alt="Add Todo Item" />
           <h2>Add new to do</h2>
         </label>

@@ -322,6 +322,7 @@ input[type="checkbox"] + section {
 }
 #form_modal{
   display: none;
+  /* display: block; */
   position: absolute;
   top: 0;
   left: 50%;
@@ -332,6 +333,7 @@ input[type="checkbox"] + section {
 }
 #modal_layer{
   display: none;
+  /* display: block; */
   position: fixed;
   top: 0;
   bottom: 0;

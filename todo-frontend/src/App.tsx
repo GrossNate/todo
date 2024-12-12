@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Items from './components/Items'
 import Sidebar from './components/Sidebar'
-import { MutationObject, Todo } from './types'
+import { DisplayTypes, MutationObject, Todo } from './types'
 import { deleteItem, getAll, setCompleted } from './services/todos'
+import AddItem from './components/AddItem'
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
-  
+  const [addItemDisplay, setAddItemDisplay] = useState<DisplayTypes>("none");
+
   const deleteLocal = (id: number) => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
@@ -24,6 +26,12 @@ function App() {
     delete: async (id: number): Promise<void> => {
       const itemDeleted = await deleteItem(id);
       if (itemDeleted) deleteLocal(id)
+    },
+    showAddItem: () => {
+      setAddItemDisplay("block");
+    },
+    hideAddItem: () => {
+      setAddItemDisplay("none");
     }
   }
 
@@ -40,6 +48,7 @@ function App() {
       <input type='checkbox' id='sidebar_toggle' />
       <Sidebar />
       <Items todos={todos} mutate={mutate} />
+      <AddItem mutate={mutate} addItemDisplay={addItemDisplay} />
     </>
   )
 }
