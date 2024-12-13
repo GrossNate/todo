@@ -19,3 +19,11 @@ export const deleteItem = async (id: Todo["id"]): Promise<boolean> => {
   const response = await axios.delete(`${baseUrl}/${id.toString()}`);
   return response.status === 204;  // Status code is 204 if item was deleted.
 };
+
+export const newItem = async (newTodo: Omit<Todo, "id">) => {
+  const response: AxiosResponse<Todo> | false = await axios.post(baseUrl, newTodo).catch(() => false);
+  if (response) {
+    return response.data;
+  }
+  return false;
+};

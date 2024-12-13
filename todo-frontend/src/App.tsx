@@ -3,7 +3,7 @@ import './App.css'
 import Items from './components/Items'
 import Sidebar from './components/Sidebar'
 import { DisplayTypes, MutationObject, Todo } from './types'
-import { deleteItem, getAll, setCompleted } from './services/todos'
+import { deleteItem, getAll, newItem, setCompleted } from './services/todos'
 import AddItem from './components/AddItem'
 
 function App() {
@@ -26,6 +26,14 @@ function App() {
     delete: async (id: number): Promise<void> => {
       const itemDeleted = await deleteItem(id);
       if (itemDeleted) deleteLocal(id)
+    },
+    addItem: async (newTodo: Omit<Todo, "id">): Promise<boolean> => {
+      const itemAdded = await newItem(newTodo);
+      if (itemAdded) {
+        setTodos(todos.concat(itemAdded));
+        return true;
+      }
+      return false;
     },
     showAddItem: () => {
       setAddItemDisplay("block");

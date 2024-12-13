@@ -11,6 +11,7 @@ export interface Todo {
 export interface MutationObject {
   setCompletion: (id: number, completed: boolean) => Promise<void>;
   delete: (id: number) => Promise<void>;
+  addItem: (newTodo: Omit<Todo, "id">) => Promise<boolean>;
   showAddItem: () => void;
   hideAddItem: () => void;
 }
