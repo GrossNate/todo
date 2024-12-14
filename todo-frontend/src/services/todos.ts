@@ -27,3 +27,11 @@ export const newItem = async (newTodo: Omit<Todo, "id">) => {
   }
   return false;
 };
+
+export const editItem = async (todoToEdit: Todo) => {
+  const response: AxiosResponse<Todo> | false = await axios.put(`${baseUrl}/${todoToEdit.id.toString()}`, todoToEdit).catch(() => false);
+  if (response) {
+    return response.data;
+  }
+  return false;
+};

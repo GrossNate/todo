@@ -12,8 +12,17 @@ export interface MutationObject {
   setCompletion: (id: number, completed: boolean) => Promise<void>;
   delete: (id: number) => Promise<void>;
   addItem: (newTodo: Omit<Todo, "id">) => Promise<boolean>;
+  editItem: () => Promise<boolean>;
   showAddItem: () => void;
   hideAddItem: () => void;
+  showEditItem: () => void;
+  hideEditItem: () => void;
+  setItemToEdit: React.Dispatch<React.SetStateAction<Todo>>
 }
 
 export type DisplayTypes = "block" | "none";
+
+export interface SelectOption {
+  value: string;
+  display: string;
+}
