@@ -1,11 +1,5 @@
-import { Todo, ItemProps } from "../types"
+import { ItemsProps } from "../types"
 import Item from "./Item"
-
-interface ItemsProps {
-  todos: Todo[];
-  itemProps: Omit<ItemProps, "todo">;
-  showAddItem: () => void;
-}
 
 const Items: React.FC<ItemsProps> = ({ todos, itemProps, showAddItem }: ItemsProps) => {
   return (
@@ -15,7 +9,7 @@ const Items: React.FC<ItemsProps> = ({ todos, itemProps, showAddItem }: ItemsPro
           <img src="images/hamburger.png" alt="Toggle Sidebar" />
         </label>
         <dl>
-          <dt><time>current_section.title</time></dt>
+          <dt><time>All Todos</time></dt>
           <dd>{todos.length}</dd>
         </dl>
       </header>
