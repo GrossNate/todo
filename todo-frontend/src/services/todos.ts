@@ -15,7 +15,7 @@ export const setCompleted = async (id: Todo["id"], isCompleted: boolean): Promis
   return response.data;
 };
 
-export const deleteItem = async (id: Todo["id"]): Promise<boolean> => {
+export const deleteTodo = async (id: Todo["id"]): Promise<boolean> => {
   const response = await axios.delete(`${baseUrl}/${id.toString()}`);
   return response.status === 204;  // Status code is 204 if item was deleted.
 };
@@ -28,7 +28,7 @@ export const newItem = async (newTodo: Omit<Todo, "id">) => {
   return false;
 };
 
-export const editItem = async (todoToEdit: Todo) => {
+export const editTodo = async (todoToEdit: Todo) => {
   const response: AxiosResponse<Todo> | false = await axios.put(`${baseUrl}/${todoToEdit.id.toString()}`, todoToEdit).catch(() => false);
   if (response) {
     return response.data;

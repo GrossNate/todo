@@ -26,3 +26,11 @@ export interface SelectOption {
   value: string;
   display: string;
 }
+
+export interface ItemProps {
+  todo: Todo;
+  setCompletion: (id: number, completed: boolean) => Promise<void>;
+  deleteItem: (id: number) => Promise<void>;
+  showEditItem: () => void;
+  setItemToEdit: (todo: Todo) => void;
+}

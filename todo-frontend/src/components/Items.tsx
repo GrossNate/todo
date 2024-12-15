@@ -1,7 +1,13 @@
-import { MutationObject, Todo } from "../types"
+import { Todo, ItemProps } from "../types"
 import Item from "./Item"
 
-const Items = ({ todos, mutate }: { todos: Todo[], mutate: MutationObject}) => {
+interface ItemsProps {
+  todos: Todo[];
+  itemProps: Omit<ItemProps, "todo">;
+  showAddItem: () => void;
+}
+
+const Items: React.FC<ItemsProps> = ({ todos, itemProps, showAddItem }: ItemsProps) => {
   return (
     <div id="items">
       <header>
@@ -14,7 +20,7 @@ const Items = ({ todos, mutate }: { todos: Todo[], mutate: MutationObject}) => {
         </dl>
       </header>
       <main>
-        <label htmlFor="new_item" onClick={mutate.showAddItem}>
+        <label htmlFor="new_item" onClick={showAddItem}>
           <img src="images/plus.png" alt="Add Todo Item" />
           <h2>Add new to do</h2>
         </label>
@@ -22,7 +28,14 @@ const Items = ({ todos, mutate }: { todos: Todo[], mutate: MutationObject}) => {
           <tbody>
             {
               todos.map(todo =>
-                (<Item todo={todo} key={todo.id} mutate={mutate} />))
+                (<Item
+                  todo={todo}
+                  key={todo.id}
+                  setCompletion={itemProps.setCompletion}
+                  deleteItem={itemProps.deleteItem}
+                  showEditItem={itemProps.showEditItem}
+                  setItemToEdit={itemProps.setItemToEdit}
+                />))
             }
           </tbody>
         </table>

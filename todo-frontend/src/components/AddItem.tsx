@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { DisplayTypes, MutationObject, SelectOption, Todo } from "../types";
+import { DisplayTypes, SelectOption, Todo } from "../types";
+
+interface AddItemProps {
+  addItemDisplay: DisplayTypes;
+  hideAddItem: () => void;
+  addItem: (newTodo: Omit<Todo, "id">) => Promise<boolean>;
+}
 
 const Options = ({ options }: { options: SelectOption[] }) => {
   return (
@@ -17,7 +23,7 @@ const Options = ({ options }: { options: SelectOption[] }) => {
   )
 }
 
-const AddItem = ({ mutate, addItemDisplay }: { mutate: MutationObject, addItemDisplay: DisplayTypes }) => {
+const AddItem: React.FC<AddItemProps> = ({ addItemDisplay, hideAddItem, addItem }: AddItemProps) => {
   const blankNewItem: Omit<Todo, "id" | "completed"> = { title: "", day: "", month: "", year: "", description: "" };
   const [input, setInput] = useState(blankNewItem);
 
@@ -27,12 +33,12 @@ const AddItem = ({ mutate, addItemDisplay }: { mutate: MutationObject, addItemDi
 
   const clearAndHide = () => {
     setInput(blankNewItem);
-    mutate.hideAddItem();
+    hideAddItem();
   }
 
   const handleSave = async (event: React.MouseEvent) => {
     event.preventDefault();
-    const itemAdded = await mutate.addItem({ ...input, completed: false });
+    const itemAdded = await addItem({ ...input, completed: false });
     if (itemAdded) {
       clearAndHide()
     } else {

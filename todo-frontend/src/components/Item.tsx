@@ -1,22 +1,23 @@
 import { ReactEventHandler } from "react";
-import { MutationObject, Todo } from "../types"
+import { ItemProps } from "../types"
 
-const Item = ({ todo, mutate }: { todo: Todo, mutate: MutationObject }) => {
+
+const Item: React.FC<ItemProps> = ({ todo, setCompletion, deleteItem, showEditItem, setItemToEdit }: ItemProps) => {
   const itemId: string = "item" + todo.id.toString()
 
   const handleToggleCompletion: ReactEventHandler = () => {
-    void mutate.setCompletion(todo.id, !todo.completed);
+    void setCompletion(todo.id, !todo.completed);
   }
 
   const handleDelete: ReactEventHandler = () => {
-    void mutate.delete(todo.id);
+    void deleteItem(todo.id);
   }
 
   const handleEdit: ReactEventHandler = (event) => {
     event.stopPropagation();
     event.preventDefault();
-    mutate.showEditItem();
-    mutate.setItemToEdit(todo);
+    showEditItem();
+    setItemToEdit(todo);
   }
 
   const assertString = (val: unknown): val is string => {

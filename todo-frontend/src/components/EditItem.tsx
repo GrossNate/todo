@@ -1,5 +1,14 @@
 import { ReactEventHandler } from "react";
-import { DisplayTypes, MutationObject, SelectOption, Todo } from "../types";
+import { DisplayTypes, SelectOption, Todo } from "../types";
+
+interface EditItemProps {
+  editItemDisplay: DisplayTypes;
+  itemToEdit: Todo;
+  hideEditItem: () => void;
+  editItem: () => Promise<boolean>;
+  setItemToEdit: React.Dispatch<React.SetStateAction<Todo>>
+  setCompletion: (id: number, completed: boolean) => Promise<void>;
+}
 
 const Options = ({ options }: { options: SelectOption[] }) => {
   return (
@@ -17,21 +26,21 @@ const Options = ({ options }: { options: SelectOption[] }) => {
   )
 }
 
-const EditItem = ({ mutate, editItemDisplay, itemToEdit }: { mutate: MutationObject, editItemDisplay: DisplayTypes, itemToEdit: Todo }) => {
+const EditItem: React.FC<EditItemProps> = ({ editItemDisplay, itemToEdit, hideEditItem, editItem, setItemToEdit, setCompletion }: EditItemProps) => {
   const blankTodo: Todo = { id: 0, title: "", day: "", month: "", year: "", description: "", completed: false};
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement> = (event) => {
-    mutate.setItemToEdit({ ...itemToEdit, [event.target.name]: event.target.value });
+    setItemToEdit({ ...itemToEdit, [event.target.name]: event.target.value });
   };
 
   const clearAndHide = () => {
-    mutate.setItemToEdit(blankTodo);
-    mutate.hideEditItem();
+    setItemToEdit(blankTodo);
+    hideEditItem();
   }
 
   const handleSave = async (event: React.MouseEvent) => {
     event.preventDefault();
-    const itemEdited = await mutate.editItem();
+    const itemEdited = await editItem();
     if (itemEdited) {
       clearAndHide()
     } else {
@@ -41,7 +50,7 @@ const EditItem = ({ mutate, editItemDisplay, itemToEdit }: { mutate: MutationObj
   
   const handleToggleCompletion: ReactEventHandler = (event) => {
     event.preventDefault();
-    void mutate.setCompletion(itemToEdit.id, !itemToEdit.completed);
+    void setCompletion(itemToEdit.id, !itemToEdit.completed);
     clearAndHide();
   }
 
