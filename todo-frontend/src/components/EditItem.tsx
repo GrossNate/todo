@@ -27,7 +27,7 @@ const Options = ({ options }: { options: SelectOption[] }) => {
 }
 
 const EditItem: React.FC<EditItemProps> = ({ editItemDisplay, itemToEdit, hideEditItem, editItem, setItemToEdit, setCompletion }: EditItemProps) => {
-  const blankTodo: Todo = { id: 0, title: "", day: "", month: "", year: "", description: "", completed: false};
+  const blankTodo: Todo = { id: 0, title: "", day: "", month: "", year: "", description: "", completed: false };
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement> = (event) => {
     setItemToEdit({ ...itemToEdit, [event.target.name]: event.target.value });
@@ -47,7 +47,7 @@ const EditItem: React.FC<EditItemProps> = ({ editItemDisplay, itemToEdit, hideEd
       alert("Item couldn't be edited! (You can't have a blank title.)")
     }
   }
-  
+
   const handleToggleCompletion: ReactEventHandler = (event) => {
     event.preventDefault();
     void setCompletion(itemToEdit.id, !itemToEdit.completed);
@@ -58,29 +58,32 @@ const EditItem: React.FC<EditItemProps> = ({ editItemDisplay, itemToEdit, hideEd
     .concat(
       Array(31)
         .fill(null)
-        .map((_, i) => ({ 
+        .map((_, i) => ({
           value: (i + 1).toString().padStart(2, "0"),
-          display: (i + 1).toString() })));
+          display: (i + 1).toString()
+        })));
 
   const monthOptions: SelectOption[] = [{ value: "  ", display: "Month" }]
     .concat(
       Array(12)
         .fill(null)
-        .map((_, i) => ({ 
+        .map((_, i) => ({
           value: (i + 1).toString().padStart(2, "0"),
-          display: new Date(2000, i, 1).toLocaleString("en-us", {month: "long"})})));
-          
+          display: new Date(2000, i, 1).toLocaleString("en-us", { month: "long" })
+        })));
+
   const yearOptions: SelectOption[] = [{ value: "    ", display: "Year" }]
     .concat(
       Array(10)
         .fill(null)
         .map((_, i) => {
           const earliestYear = 2024;
-          return { 
+          return {
             value: (i + earliestYear).toString(),
             display: (i + earliestYear).toString()
-          }}));
-          
+          }
+        }));
+
   return (
     <>
       <div className="modal" id="modal_layer" style={{ display: editItemDisplay }} onClick={clearAndHide}></div>
@@ -112,7 +115,7 @@ const EditItem: React.FC<EditItemProps> = ({ editItemDisplay, itemToEdit, hideEd
               </li>
               <li>
                 <input type="submit" value="Save" onClick={(event) => { void handleSave(event) }} />
-                <button name="complete" onClick={handleToggleCompletion}>Mark As {itemToEdit.completed ? "Uncomplete" :"Complete"}</button>
+                <button name="complete" onClick={handleToggleCompletion}>Mark As {itemToEdit.completed ? "Uncomplete" : "Complete"}</button>
               </li>
             </ul>
           </fieldset>

@@ -33,12 +33,12 @@ function App() {
     const completedItem = await setCompleted(id, completed);
     updateItemLocal(unspaceDescription(completedItem));
   };
-  
+
   const deleteItem = async (id: number): Promise<void> => {
     const itemDeleted = await deleteTodo(id);
     if (itemDeleted) deleteLocal(id)
   };
-  
+
   const addItem = async (newTodo: Omit<Todo, "id">): Promise<boolean> => {
     const itemAdded = await newItem(spaceDescription(newTodo));
     if (itemAdded) {
@@ -47,7 +47,7 @@ function App() {
     }
     return false;
   };
-  
+
   const editItem = async (): Promise<boolean> => {
     const itemEdited = await editTodo(spaceDescription(itemToEdit));
     if (itemEdited) {
@@ -56,19 +56,19 @@ function App() {
     }
     return false;
   };
-  
+
   const showAddItem = () => {
     setAddItemDisplay("block");
   };
-  
+
   const hideAddItem = () => {
     setAddItemDisplay("none");
   };
-  
+
   const showEditItem = () => {
     setEditItemDisplay("block");
   };
-  
+
   const hideEditItem = () => {
     setEditItemDisplay("none");
   };
@@ -87,7 +87,7 @@ function App() {
       <Sidebar />
       <Items todos={todos} itemProps={{ setCompletion, deleteItem, showEditItem, setItemToEdit }} showAddItem={showAddItem} />
       <AddItem addItemDisplay={addItemDisplay} hideAddItem={hideAddItem} addItem={addItem} />
-      <EditItem editItemDisplay={editItemDisplay} itemToEdit={itemToEdit} hideEditItem={hideEditItem} editItem={editItem} setItemToEdit={setItemToEdit} setCompletion={setCompletion}/>
+      <EditItem editItemDisplay={editItemDisplay} itemToEdit={itemToEdit} hideEditItem={hideEditItem} editItem={editItem} setItemToEdit={setItemToEdit} setCompletion={setCompletion} />
     </>
   )
 }

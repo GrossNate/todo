@@ -50,29 +50,32 @@ const AddItem: React.FC<AddItemProps> = ({ addItemDisplay, hideAddItem, addItem 
     .concat(
       Array(31)
         .fill(null)
-        .map((_, i) => ({ 
+        .map((_, i) => ({
           value: (i + 1).toString().padStart(2, "0"),
-          display: (i + 1).toString() })));
+          display: (i + 1).toString()
+        })));
 
   const monthOptions: SelectOption[] = [{ value: "  ", display: "Month" }]
     .concat(
       Array(12)
         .fill(null)
-        .map((_, i) => ({ 
+        .map((_, i) => ({
           value: (i + 1).toString().padStart(2, "0"),
-          display: new Date(2000, i, 1).toLocaleString("en-us", {month: "long"})})));
-          
+          display: new Date(2000, i, 1).toLocaleString("en-us", { month: "long" })
+        })));
+
   const yearOptions: SelectOption[] = [{ value: "    ", display: "Year" }]
     .concat(
       Array(10)
         .fill(null)
         .map((_, i) => {
           const earliestYear = 2024;
-          return { 
+          return {
             value: (i + earliestYear).toString(),
             display: (i + earliestYear).toString()
-          }}));
-          
+          }
+        }));
+
   return (
     <>
       <div className="modal" id="modal_layer" style={{ display: addItemDisplay }} onClick={clearAndHide}></div>

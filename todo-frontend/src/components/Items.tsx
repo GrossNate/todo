@@ -22,14 +22,14 @@ const Items: React.FC<ItemsProps> = ({ todos, itemProps, showAddItem }: ItemsPro
           <tbody>
             {
               todos.map(todo =>
-                (<Item
-                  todo={todo}
-                  key={todo.id}
-                  setCompletion={itemProps.setCompletion}
-                  deleteItem={itemProps.deleteItem}
-                  showEditItem={itemProps.showEditItem}
-                  setItemToEdit={itemProps.setItemToEdit}
-                />))
+              (<Item
+                todo={todo}
+                key={todo.id}
+                setCompletion={itemProps.setCompletion}
+                deleteItem={itemProps.deleteItem}
+                showEditItem={itemProps.showEditItem}
+                setItemToEdit={itemProps.setItemToEdit}
+              />))
             }
           </tbody>
         </table>
